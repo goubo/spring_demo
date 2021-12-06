@@ -4,19 +4,20 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.bobo.demo.user.entity.UserInfo">
-        <result column="id" property="id" />
-        <result column="create_time" property="createTime" />
-        <result column="update_time" property="updateTime" />
-        <result column="is_deleted" property="deleted" />
-        <result column="user_name" property="userName" />
-        <result column="user_password" property="userPassword" />
-        <result column="user_email" property="userEmail" />
-        <result column="user_address" property="userAddress" />
+        <result column="id" property="id"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="is_deleted" property="deleted"/>
+        <result column="user_name" property="userName"/>
+        <result column="user_password" property="userPassword"/>
+        <result column="user_email" property="userEmail"/>
+        <result column="user_address" property="userAddress"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id,
+        id
+        ,
         create_time,
         update_time,
         is_deleted,

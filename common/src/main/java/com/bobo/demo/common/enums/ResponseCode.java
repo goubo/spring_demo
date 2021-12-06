@@ -18,7 +18,7 @@ public enum ResponseCode {
    * 在接受请求处理并返回2002状态码的响应应当在返回的实体中包含一些指示处理当前状态的信息，以及指向处理状态监视器或状态预测的指针，以便用户能够估计操作是否已经完成。
    */
   ACCEPTED_SUCCESS(20200, "ACCEPTED", 202),
-
+  
   NOT_FOUND(40400, "NOT FOUND", 404),
   /**
    * 由于包含语法错误，当前请求无法被服务器理解。除非进行修改，否则客户端不应该重复提交这个请求
@@ -54,12 +54,12 @@ public enum ResponseCode {
    * 无权访问
    */
   JURISDICTION(40302, "NO PERMISSION ACCESS RESOURCE", 403),
-
+  
   /**
    * 423 LOCKED , "请求资源被锁定"
    */
   LOCKED(42300, "LOCKED", 423),
-
+  
   /**
    * 服务器未知异常，需要编码层面处理
    */
@@ -72,28 +72,28 @@ public enum ResponseCode {
    * 当服务器作为网关，不能及时得到响应时返回此错误代码。
    */
   ERROR_GATEWAY_TIMEOUT(50400, "GATEWAY TIMEOUT", 504),
-
+  
   ;;
-
-
+  
+  
   final int code;
   final int httpCode;
   final String msg;
-
+  
   ResponseCode(int code, String msg, int httpCode) {
     this.code = code;
     this.httpCode = httpCode;
     this.msg = msg;
   }
-
+  
   public int getCode() {
     return code;
   }
-
+  
   public int getHttpCode() {
     return httpCode;
   }
-
+  
   public String getMsg() {
     return msg;
   }
