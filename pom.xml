@@ -4,67 +4,66 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.bobo</groupId>
     <artifactId>springboot_demo</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.1</version>
     <description>springboot 相关测试框架</description>
     <modules>
-        <module>sso</module>
+        <module>common</module>
         <module>user</module>
         <module>login</module>
+        <module>sso</module>
         <module>generator</module>
-        <module>common</module>
     </modules>
     <packaging>pom</packaging>
     <properties>
         <java.version>17</java.version>
         <mybatisplus.version>3.4.3.4</mybatisplus.version>
+        <mybatis.plus.generator.version>3.5.1</mybatis.plus.generator.version>
+        <mysql.connector.java.version>8.0.27</mysql.connector.java.version>
         <druid.version>1.2.6</druid.version>
-        <mybatis.plus.generator>3.5.1</mybatis.plus.generator>
-        <mysql.connector.java>8.0.27</mysql.connector.java>
-        <springfox.boot.starter>3.0.0</springfox.boot.starter>
+        <springfox.boot.starter.version>3.0.0</springfox.boot.starter.version>
+        <spring.boot.version>2.5.5</spring.boot.version>
+        <spring.cloud.version>2020.0.3</spring.cloud.version>
+        <spring.cloud.alibaba.version>2021.1</spring.cloud.alibaba.version>
+        <hutool.version>5.7.16</hutool.version>
     </properties>
 
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.6.1</version>
-        <relativePath/>
-    </parent>
-
-
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-        </dependency>
-    </dependencies>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>com.bobo</groupId>
                 <artifactId>common</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <version>0.1</version>
             </dependency>
 
+            <!--Spring Cloud Alibaba 版本管理器-->
             <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>druid-spring-boot-starter</artifactId>
-                <version>${druid.version}</version>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${spring.cloud.alibaba.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!--Spring Boot 版本管理器-->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring.boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!--Spring Cloud 版本管理器-->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring.cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
             <dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
-                <version>${mysql.connector.java}</version>
+                <version>${mysql.connector.java.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.baomidou</groupId>
@@ -74,17 +73,43 @@
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-generator</artifactId>
-                <version>${mybatis.plus.generator}</version>
+                <version>${mybatis.plus.generator.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>io.springfox</groupId>
                 <artifactId>springfox-boot-starter</artifactId>
-                <version>${springfox.boot.starter}</version>
+                <version>${springfox.boot.starter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${druid.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>${hutool.version}</version>
+        </dependency>
+
+    </dependencies>
     <build>
         <plugins>
             <plugin>

@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.bobo.demo.common.enums.ResponseCode;
@@ -62,7 +61,7 @@ public abstract class BaseServiceImpl<M extends BaseMapper<T>, T extends BaseDom
   }
   
   @Override
-  public IPage<?> page(int current, int size, T domain) {
+  public Page<T> page(int current, int size, T domain) {
     Page<T> page = new Page<>(current, size);
     LambdaQueryWrapper<T> wrapper = new LambdaQueryWrapper<>(domain);
     return super.page(page, wrapper);

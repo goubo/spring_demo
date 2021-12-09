@@ -1,6 +1,6 @@
 package com.bobo.demo.common.base;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -50,6 +50,6 @@ public interface IBaseService<T extends BaseDomain> extends IService<T> {
    * @param domain  领域模型
    * @return 管理员分页数据
    */
-  IPage<?> page(int current, int size, T domain);
+  Page<T> page(int current, int size, T domain);
   
 }

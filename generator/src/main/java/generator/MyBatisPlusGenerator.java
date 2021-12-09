@@ -18,14 +18,14 @@ import java.util.function.Consumer;
  */
 public class MyBatisPlusGenerator {
   
-  private final static String url = "jdbc:mysql://172.16.204.147:3306/demodb?useSSL=false";
+  private final static String url = "jdbc:mysql://172.16.204.147:3306/demodb?useSSL=false&allowPublicKeyRetrieval=true";
   private final static String userName = "root";
   private final static String password = "H%Rt?)QjM^j?M8";
   private final static String parent = "com.bobo.demo";
   
   private final static boolean fileOverride = true;
   
-  private final static String productPath = "/Users/bo/my/code/java/springboot_demo";
+  private final static String productPath = "/Users/bo/my/git/spring_demo";
   private final static String moduleName = "user";
   private final static String author = "bobo";
   

@@ -14,20 +14,15 @@ public class ErrorPageController implements ErrorController {
   
   @RequestMapping(value = "/error")
   @ResponseBody
-  public ResponseResult errorHtml(HttpServletRequest request) {
+  public ResponseResult<Object> errorHtml(HttpServletRequest request) {
     Integer attribute = (Integer) request.getAttribute("javax.servlet.error.status_code");
-    switch (attribute) {
-      case 404:
-        return ResponseResult.failure(ResponseCode.NOT_FOUND);
-      case 403:
-        return ResponseResult.failure(ResponseCode.FORBIDDEN);
-      case 423:
-        return ResponseResult.failure(ResponseCode.LOCKED);
-      case 504:
-        return ResponseResult.failure(ResponseCode.ERROR_GATEWAY_TIMEOUT);
-      default:
-        return ResponseResult.failure(ResponseCode.ERROR_INTERNAL_SERVER_ERROR);
-    }
+    return switch (attribute) {
+      case 404 -> new ResponseResult<>(ResponseCode.NOT_FOUND);
+      case 403 -> new ResponseResult<>(ResponseCode.FORBIDDEN);
+      case 423 -> new ResponseResult<>(ResponseCode.LOCKED);
+      case 504 -> new ResponseResult<>(ResponseCode.ERROR_GATEWAY_TIMEOUT);
+      default -> new ResponseResult<>(ResponseCode.ERROR_INTERNAL_SERVER_ERROR);
+    };
     
   }
 }

@@ -1,7 +1,8 @@
 package com.bobo.demo.common.base;
 
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.bobo.demo.common.enums.ResponseCode;
 import com.bobo.demo.common.response.ResponseResult;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+
 
 /**
  * @author h-vk
@@ -39,9 +41,9 @@ public abstract class BaseController<T extends BaseDomain, S extends IBaseServic
     // 业务逻辑
     boolean created = service.create(domain);
     if (created) {
-      return ResponseResult.success("创建成功");
+      return new ResponseResult("创建成功");
     }
-    return ResponseResult.failure();
+    return new ResponseResult<Object>(ResponseCode.ERROR_INTERNAL_SERVER_ERROR);
   }
   
   /**
@@ -56,9 +58,9 @@ public abstract class BaseController<T extends BaseDomain, S extends IBaseServic
     // 业务逻辑
     boolean deleted = service.remove(id);
     if (deleted) {
-      return ResponseResult.success("删除成功");
+      return new ResponseResult("删除成功");
     }
-    return ResponseResult.failure();
+    return new ResponseResult<Object>(ResponseCode.ERROR_INTERNAL_SERVER_ERROR);
   }
   
   /**
@@ -73,9 +75,9 @@ public abstract class BaseController<T extends BaseDomain, S extends IBaseServic
     // 业务逻辑
     boolean updated = service.update(domain);
     if (updated) {
-      return ResponseResult.success("修改成功");
+      return new ResponseResult("修改成功");
     }
-    return ResponseResult.failure();
+    return new ResponseResult<Object>(ResponseCode.ERROR_INTERNAL_SERVER_ERROR);
   }
   
   /**
@@ -85,10 +87,10 @@ public abstract class BaseController<T extends BaseDomain, S extends IBaseServic
    * @return {@link ResponseResult}
    */
   @ApiOperation("根据ID获取")
-  @GetMapping("/get/{id}")
+  @GetMapping("/{id}")
   public ResponseResult get(@PathVariable Long id) {
     T domain = service.get(id);
-    return ResponseResult.success(domain);
+    return new ResponseResult<T>(domain);
   }
   
   /**
@@ -99,10 +101,10 @@ public abstract class BaseController<T extends BaseDomain, S extends IBaseServic
    * @return {@link ResponseResult}
    */
   @ApiOperation("分页查询")
-  @GetMapping("/page")
-  public ResponseResult page(@RequestParam int current, @RequestParam int size, @ModelAttribute T domain) {
-    IPage<?> page = service.page(current, size, domain);
-    return ResponseResult.success(page);
+  @GetMapping()
+  public ResponseResult page(@RequestParam(required = false, defaultValue = "1") int current,
+                             @RequestParam(required = false, defaultValue = "10") int size, @ModelAttribute T domain) {
+    return new ResponseResult<Page<T>>(service.page(current, size, domain));
   }
   
   /**
@@ -117,9 +119,9 @@ public abstract class BaseController<T extends BaseDomain, S extends IBaseServic
     UpdateWrapper<T> updateWrapper = new UpdateWrapper<>();
     updateWrapper.set("is_deleted", true).set("update_time", LocalDateTime.now()).in("id", Arrays.asList(ids));
     if (service.update(updateWrapper)) {
-      return ResponseResult.success("批量删除成功");
+      return new ResponseResult("批量删除成功");
     }
-    return ResponseResult.failure();
+    return new ResponseResult<Object>(ResponseCode.ERROR_INTERNAL_SERVER_ERROR);
   }
   
   /**
@@ -133,9 +135,9 @@ public abstract class BaseController<T extends BaseDomain, S extends IBaseServic
   public ResponseResult updateBatch(@ModelAttribute List<T> domainList) {
     boolean updated = service.updateBatchById(domainList);
     if (updated) {
-      return ResponseResult.success("批量修改成功");
+      return new ResponseResult("批量修改成功");
     }
-    return ResponseResult.failure();
+    return new ResponseResult<Object>(ResponseCode.ERROR_INTERNAL_SERVER_ERROR);
   }
   
 }

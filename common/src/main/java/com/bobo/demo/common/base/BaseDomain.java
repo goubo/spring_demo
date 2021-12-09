@@ -27,7 +27,7 @@ public abstract class BaseDomain<T> implements Serializable {
    * 主键 <br>
    * 生成策略：ASSIGN_ID
    */
-  @ApiModelProperty(value = "主键 -> 生成策略：ASSIGN_ID")
+  @ApiModelProperty(value = "主键 -> 生成策略：ASSIGN_ID", hidden = true)
   @TableId(value = "`id`", type = IdType.ASSIGN_ID)
   @JsonFormat(shape = JsonFormat.Shape.STRING)
   private Long id;
@@ -35,7 +35,7 @@ public abstract class BaseDomain<T> implements Serializable {
   /**
    * 创建时间
    */
-  @ApiModelProperty(value = "创建时间 ")
+  @ApiModelProperty(value = "创建时间 ", hidden = true)
   @TableField(value = "`create_time`", fill = FieldFill.INSERT)
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
   private LocalDateTime createTime;
@@ -43,7 +43,7 @@ public abstract class BaseDomain<T> implements Serializable {
   /**
    * 修改时间
    */
-  @ApiModelProperty(value = "修改时间 ")
+  @ApiModelProperty(value = "修改时间 ", hidden = true)
   @TableField(value = "`update_time`", fill = FieldFill.INSERT_UPDATE)
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
   private LocalDateTime updateTime;
@@ -51,10 +51,12 @@ public abstract class BaseDomain<T> implements Serializable {
   /**
    * 是否删除 0: 否 1: 是
    */
-  @ApiModelProperty(value = "是否删除 0: 否 1: 是 ")
+  @ApiModelProperty(value = "是否删除 0: 否 1: 是 ", hidden = true)
   @TableLogic
   @TableField(value = "`is_deleted`", fill = FieldFill.INSERT)
   private Boolean deleted;
+  
+  
   
   
   /**

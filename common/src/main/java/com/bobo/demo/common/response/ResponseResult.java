@@ -4,58 +4,47 @@ import com.bobo.demo.common.enums.ResponseCode;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+import java.io.Serializable;
+
 /**
  * @author bo
  */
 @Data
 @Accessors(chain = true)
-public class ResponseResult {
+public class ResponseResult<T> implements Serializable {
   private String msg;
   private int code;
   private int httpCode;
-  private Object object;
+  private T object;
   
-  private ResponseResult(ResponseCode responseCode) {
+  public ResponseResult() {
+    this.code = ResponseCode.SUCCESS.getCode();
+    this.httpCode = ResponseCode.SUCCESS.getHttpCode();
+    this.msg = ResponseCode.SUCCESS.getMsg();
+  }
+  
+  public ResponseResult(ResponseCode responseCode) {
     this.code = responseCode.getCode();
     this.httpCode = responseCode.getHttpCode();
     this.msg = responseCode.getMsg();
   }
   
-  public static ResponseResult success(String msg) {
-    return success().setMsg(msg);
+  public ResponseResult(String msg) {
+    this.code = ResponseCode.SUCCESS.getCode();
+    this.httpCode = ResponseCode.SUCCESS.getHttpCode();
+    this.msg = msg;
   }
   
-  public static ResponseResult success() {
-    return new ResponseResult(ResponseCode.SUCCESS);
+  public ResponseResult(T t) {
+    this.code = ResponseCode.SUCCESS.getCode();
+    this.httpCode = ResponseCode.SUCCESS.getHttpCode();
+    this.msg = ResponseCode.SUCCESS.getMsg();
+    this.object = t;
   }
   
-  public static ResponseResult success(Object object) {
-    return success().setObject(object);
+  public ResponseResult(ResponseCode responseCode, String msg) {
+    this.code = responseCode.getCode();
+    this.httpCode = responseCode.getHttpCode();
+    this.msg = msg;
   }
-  
-  public static ResponseResult success(ResponseCode responseCode) {
-    return new ResponseResult(responseCode);
-  }
-  
-  public static ResponseResult success(ResponseCode responseCode, String msg) {
-    return new ResponseResult(responseCode).setMsg(msg);
-  }
-  
-  public static ResponseResult failure(String msg) {
-    return failure().setMsg(msg);
-  }
-  
-  public static ResponseResult failure() {
-    return new ResponseResult(ResponseCode.ERROR_INTERNAL_SERVER_ERROR);
-  }
-  
-  public static ResponseResult failure(ResponseCode responseCode) {
-    return new ResponseResult(responseCode);
-  }
-  
-  public static ResponseResult failure(ResponseCode responseCode, String msg) {
-    return new ResponseResult(responseCode).setMsg(msg);
-  }
-  
-  
 }

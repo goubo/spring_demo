@@ -1,5 +1,6 @@
 package com.bobo.demo.common.exception.handler;
 
+import com.bobo.demo.common.enums.ResponseCode;
 import com.bobo.demo.common.exception.BusinessException;
 import com.bobo.demo.common.response.ResponseResult;
 import lombok.extern.slf4j.Slf4j;
@@ -29,10 +30,10 @@ public class GlobalExceptionHandler {
    */
   @ExceptionHandler(value = BusinessException.class)
   @ResponseBody
-  private ResponseResult customExceptionHandler(BusinessException ex, HttpServletResponse response) {
+  private ResponseResult<Object> customExceptionHandler(BusinessException ex, HttpServletResponse response) {
     log.warn("[全局业务异常]\r\n业务编码：{}\r\n异常记录：{}", ex.getResponseCode().getCode(), ex.getMessage(), ex);
     response.setStatus(ex.getResponseCode().getHttpCode());
-    return ResponseResult.failure(ex.getResponseCode());
+    return new ResponseResult<>(ex.getResponseCode());
   }
   
   
@@ -45,9 +46,8 @@ public class GlobalExceptionHandler {
   @ExceptionHandler(value = Exception.class)
   @ResponseBody
   @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-  private ResponseResult exceptionHandler(Exception ex) {
+  private ResponseResult<Object> exceptionHandler(Exception ex) {
     log.error(ex.getMessage(), ex);
-    ResponseResult failure = ResponseResult.failure(ex.getMessage());
-    return failure;
+    return new ResponseResult<>(ResponseCode.ERROR_INTERNAL_SERVER_ERROR, ex.getMessage());
   }
 }
