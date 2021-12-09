@@ -11,3 +11,12 @@ spring 功能demo
 8. nacos 注册中心
 9. openfeign 调用
 10. Sentinel 监控
+
+
+# 启动
+1. 启动 Sentinel 控制台
+2. 启动 nacos
+3. 修改 bootstrap.yaml 中 Sentinel和nacos 地址
+4. 导入 nacos 的配置文件
+5. 修改 bootstrap.yaml 中 nacos 的group , namespace 信息
+6. 启动 所有服务
