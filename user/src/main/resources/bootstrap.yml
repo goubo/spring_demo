@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: demo-user
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      config:
+        server-addr: 172.16.204.147:8848
+        namespace: 40aecca3-01ad-4cb5-a41b-1441979639a4
+        extension-configs:
+          - refresh: true
+            group: localdemo_group
+            dataId: base.yaml
+          - refresh: true
+            group: localdemo_group
+            dataId: datasource-${spring.profiles.active}.yaml
+          - refresh: true
+            group: localdemo_group
+            dataId: ${spring.application.name}-${spring.profiles.active}.yaml
+      discovery:
+        server-addr: 172.16.204.147:8848
+        group: localdemo_group
+        namespace: 40aecca3-01ad-4cb5-a41b-1441979639a4
+    sentinel:
+      transport:
+        dashboard: http://172.16.204.147:18080/
+        port: 11001
+      eager: true
+server:
+  port: 10001
