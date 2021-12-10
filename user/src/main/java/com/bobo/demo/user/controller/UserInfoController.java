@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2021-12-08
  */
 @RestController
-@RequestMapping("/user/user-info")
+@RequestMapping("/user-info")
 @ApiModel(value = "UserInfo", description = "")
 public class UserInfoController extends BaseController<UserInfo, IUserInfoService> {
 

@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
+
 /**
  * @author bo
  */
@@ -23,12 +26,18 @@ public class LoginController {
     this.userClient = userClient;
   }
   
-  
-  @GetMapping(value = "test/{string}", produces = "application/json")
+  /**
+   * test
+   *
+   * @return
+   */
+  @GetMapping(value = "test", produces = "application/json")
   @ResponseBody
-  public ResponseResult<Page<UserInfoVO>> test() {
+  public ResponseResult<Page<UserInfoVO>> test(HttpServletRequest request) {
 //    System.out.println(restTemplate.getForObject("http://" + USER_INFO_MODULE_NAME + "/user/user-info", String
 //    .class));
+    Map<String, String[]> parameterMap = request.getParameterMap();
+    System.out.println(parameterMap);
     return userClient.page(1, 10);
   }
 }

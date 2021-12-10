@@ -27,5 +27,6 @@ spring:
         dashboard: http://172.16.204.147:18080/
         port: 11001
       eager: true
+      enabled: true
 server:
   port: 10001

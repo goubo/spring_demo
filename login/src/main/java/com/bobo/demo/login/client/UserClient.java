@@ -14,8 +14,14 @@ import static com.bobo.demo.common.constant.ModuleInfoConstant.USER_INFO_MODULE_
  */
 @FeignClient(USER_INFO_MODULE_NAME)
 public interface UserClient {
-  
-  @GetMapping(value = "/user/user-info")
+  /**
+   * 分页查询用户
+   *
+   * @param current 页数
+   * @param size    条数
+   * @return 返回 page 对象
+   */
+  @GetMapping(value = "/user-info")
   ResponseResult<Page<UserInfoVO>> page(@RequestParam(defaultValue = "1", value = "current") int current,
                                         @RequestParam(defaultValue = "10", value = "size") int size);
   
