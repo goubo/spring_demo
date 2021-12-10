@@ -26,7 +26,7 @@ spring:
       max-pool-prepared-statement-per-connection-size: 20
       # 通过 connection-properties 属性打开 mergeSql 功能；慢 SQL 记录
       connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
-      filters: stat,wall,log4j2
+      filters: stat,wall,slf4j
       # Druid WebStatFilter配置
       web-stat-filter:
         enabled: true
