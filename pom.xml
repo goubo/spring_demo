@@ -19,6 +19,7 @@
         <java.version>17</java.version>
         <mybatisplus.version>3.4.3.4</mybatisplus.version>
         <mybatis.plus.generator.version>3.5.1</mybatis.plus.generator.version>
+        <dynamic-datasource.version>3.2.0</dynamic-datasource.version>
         <mysql.connector.java.version>8.0.27</mysql.connector.java.version>
         <druid.version>1.2.6</druid.version>
         <springfox.boot.starter.version>3.0.0</springfox.boot.starter.version>
@@ -75,6 +76,12 @@
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-generator</artifactId>
                 <version>${mybatis.plus.generator.version}</version>
+            </dependency>
+            <!-- 多数据源依赖 -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
+                <version>${dynamic-datasource.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.springfox</groupId>

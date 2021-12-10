@@ -17,7 +17,7 @@ spring 功能demo
 - [x] Sentinel 监控
 - [x] gateway
 - [ ] sharding-jdbc
-- [ ] druid 多数据源
+- [x] druid 多数据源
 - [ ] 登录权限
 - [ ] sso
 
