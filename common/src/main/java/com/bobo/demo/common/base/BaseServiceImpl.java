@@ -75,7 +75,7 @@ public abstract class BaseServiceImpl<M extends BaseMapper<T>, T extends BaseDom
    */
   protected boolean checkId(Long id) {
     if (!checkUniqueness(ID, id)) {
-      throw new BusinessException(ResponseCode.PARAM_NOT_FOUND);
+      throw new BusinessException(ResponseCode.NOT_FOUND);
     }
     return true;
   }

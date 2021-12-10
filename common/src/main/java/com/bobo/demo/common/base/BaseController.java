@@ -36,7 +36,7 @@ public abstract class BaseController<T extends BaseDomain, S extends IBaseServic
    * @return {@link ResponseResult}
    */
   @ApiOperation("创建数据")
-  @PostMapping("/create")
+  @PostMapping()
   public ResponseResult create(@RequestBody T domain) {
     // 业务逻辑
     boolean created = service.create(domain);
@@ -52,7 +52,7 @@ public abstract class BaseController<T extends BaseDomain, S extends IBaseServic
    * @param id {@code Long}
    * @return {@link ResponseResult}
    */
-  @DeleteMapping("/remove/{id}")
+  @DeleteMapping("/{id}")
   @ApiOperation("删除数据")
   public ResponseResult remove(@PathVariable Long id) {
     // 业务逻辑
@@ -70,7 +70,7 @@ public abstract class BaseController<T extends BaseDomain, S extends IBaseServic
    * @return {@link ResponseResult}
    */
   @ApiOperation("修改数据")
-  @PutMapping("/update")
+  @PutMapping()
   public ResponseResult update(@RequestBody T domain) {
     // 业务逻辑
     boolean updated = service.update(domain);
@@ -114,14 +114,12 @@ public abstract class BaseController<T extends BaseDomain, S extends IBaseServic
    * @return {@link ResponseResult}
    */
   @ApiOperation("批量删除数据")
-  @DeleteMapping("/remove-batch")
+  @DeleteMapping("/batch/")
   public ResponseResult removeBatch(@RequestParam(value = "ids[]") String[] ids) {
     UpdateWrapper<T> updateWrapper = new UpdateWrapper<>();
     updateWrapper.set("is_deleted", true).set("update_time", LocalDateTime.now()).in("id", Arrays.asList(ids));
-    if (service.update(updateWrapper)) {
-      return new ResponseResult("批量删除成功");
-    }
-    return new ResponseResult<Object>(ResponseCode.ERROR_INTERNAL_SERVER_ERROR);
+    service.update(updateWrapper);
+    return new ResponseResult("批量删除成功");
   }
   
   /**
@@ -131,7 +129,7 @@ public abstract class BaseController<T extends BaseDomain, S extends IBaseServic
    * @return {@link ResponseResult}
    */
   @ApiOperation("批量修改数据")
-  @PutMapping("/update-batch")
+  @PutMapping("/update-batch/")
   public ResponseResult updateBatch(@ModelAttribute List<T> domainList) {
     boolean updated = service.updateBatchById(domainList);
     if (updated) {
