@@ -49,4 +49,8 @@ public class ResponseResult<T> implements Serializable {
     this.httpCode = responseCode.getHttpCode();
     this.msg = msg;
   }
+  
+  public boolean success() {
+    return code == ResponseCode.SUCCESS.getCode();
+  }
 }

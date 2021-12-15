@@ -1,17 +1,30 @@
 package com.bobo.demo.user.config;
 
+import cn.hutool.json.JSONUtil;
+import com.bobo.demo.common.enums.ResponseCode;
 import com.bobo.demo.common.response.ResponseResult;
 import com.bobo.demo.user.client.AuthClient;
+import com.bobo.demo.user.entity.VO.AuthVO;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import static com.bobo.demo.common.constant.ModuleInfoConstant.USER_INFO_MODULE_NAME;
+
 /**
  * @author bo
  */
-public record UserLoginInterceptor(AuthClient authClient) implements HandlerInterceptor {
+
+public class UserLoginInterceptor implements HandlerInterceptor {
+  
+  private AuthClient authClient;
+  
+  public UserLoginInterceptor(AuthClient authClient) {
+    this.authClient = authClient;
+    
+  }
   
   @Override
   public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -19,9 +32,17 @@ public record UserLoginInterceptor(AuthClient authClient) implements HandlerInte
     //查询session
     String id = request.getSession().getId();
     //通过auth模块验证身份 和 模块权限
-    ResponseResult<Object> objectResponseResult = authClient.checkToken(id, "");
-    System.out.println(objectResponseResult.toString());
-    return true;
+    ResponseResult<AuthVO> authVOResponseResult = authClient.checkToken(id, USER_INFO_MODULE_NAME);
+    if (authVOResponseResult.success()) {
+      System.out.println(authVOResponseResult);
+      request.setAttribute("userSession", authVOResponseResult.getObject());
+      return true;
+    } else {
+      response.setStatus(ResponseCode.UNAUTHORIZED.getCode());
+      response.getWriter().write(JSONUtil.toJsonStr(new ResponseResult<>(ResponseCode.UNAUTHORIZED)));
+      return false;
+    }
+    
   }
   
   @Override

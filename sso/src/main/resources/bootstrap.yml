@@ -1,5 +1,5 @@
 server:
-  port:1001
+  port: 10003
 spring:
   application:
     name: demo-login

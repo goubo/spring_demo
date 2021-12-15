@@ -5,11 +5,13 @@ import com.bobo.demo.auth.client.UserClient;
 import com.bobo.demo.auth.entity.VO.AuthParam;
 import com.bobo.demo.auth.entity.VO.AuthVO;
 import com.bobo.demo.auth.entity.VO.UserInfoVO;
+import com.bobo.demo.common.enums.ResponseCode;
 import com.bobo.demo.common.response.ResponseResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  * @author bo
@@ -40,14 +42,27 @@ public class AuthController {
   
   @PostMapping(value = "login")
   @ResponseBody
-  public ResponseResult<AuthVO> login(@RequestBody AuthParam authParam) {
-    return userClient.check(authParam);
+  public ResponseResult<AuthVO> login(@RequestBody AuthParam authParam, HttpServletRequest request) {
+    ResponseResult<AuthVO> check = userClient.check(authParam);
+    if (check.success()) {
+      System.out.println("登录成功");
+      request.getSession().setAttribute("login_user", check.getObject());
+      
+    }
+    return check;
   }
   
   @PostMapping(value = "checkToken")
   @ResponseBody
-  public ResponseResult<Object> checkToken(@RequestParam String sessionId, @RequestParam String moduleId) {
-    return null;
+  public ResponseResult<AuthVO> checkToken(@RequestParam String sessionId, @RequestParam String moduleName,
+                                           HttpServletRequest request) {
+    HttpSession session = request.getSession();
+    AuthVO loginUser = (AuthVO) session.getAttribute("login_user");
+    if (loginUser == null) {
+      return new ResponseResult<>(ResponseCode.UNAUTHORIZED);
+    }
+    System.out.println(loginUser);
+    return new ResponseResult<>(loginUser);
   }
 }
 

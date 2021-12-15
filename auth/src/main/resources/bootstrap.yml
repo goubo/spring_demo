@@ -2,7 +2,7 @@ server:
   port: 10001
 spring:
   application:
-    name: demo-login
+    name: demo-auth
   profiles:
     active: dev
   cloud:
