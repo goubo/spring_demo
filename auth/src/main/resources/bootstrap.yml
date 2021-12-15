@@ -1,3 +1,5 @@
+server:
+  port: 10001
 spring:
   application:
     name: demo-login
@@ -22,6 +24,6 @@ spring:
     sentinel:
       transport:
         dashboard: 172.16.204.147:18080
-        port: 11002
+        port: 11001
       eager: true
       enabled: true

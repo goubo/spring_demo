@@ -1,4 +1,4 @@
-package com.bobo.demo.login.entity.VO;
+package com.bobo.demo.auth.entity.VO;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;

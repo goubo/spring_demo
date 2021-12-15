@@ -1,4 +1,4 @@
-package com.bobo.demo.login;
+package com.bobo.demo.auth;
 
 import com.baomidou.mybatisplus.autoconfigure.MybatisPlusAutoConfiguration;
 import com.bobo.demo.common.base.BaseApplication;
@@ -22,9 +22,9 @@ import springfox.documentation.oas.annotations.EnableOpenApi;
 @EnableFeignClients
 @SpringBootApplication(scanBasePackages = {"com.bobo.demo"},
   exclude = {DataSourceAutoConfiguration.class, MybatisPlusAutoConfiguration.class})
-public class LoginApplication extends BaseApplication {
+public class AuthApplication extends BaseApplication {
   public static void main(String[] args) {
-    SpringApplication.run(LoginApplication.class, args);
+    SpringApplication.run(AuthApplication.class, args);
   }
   
   @LoadBalanced

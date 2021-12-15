@@ -2,6 +2,7 @@ package com.bobo.demo.common.response;
 
 import com.bobo.demo.common.enums.ResponseCode;
 import lombok.Data;
+import lombok.ToString;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
@@ -11,6 +12,7 @@ import java.io.Serializable;
  */
 @Data
 @Accessors(chain = true)
+@ToString
 public class ResponseResult<T> implements Serializable {
   private String msg;
   private int code;

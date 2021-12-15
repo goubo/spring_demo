@@ -38,11 +38,11 @@ spring:
             - Path=/user-api/**  # 使用断言
           filters:
             - StripPrefix=1  # 截掉第一段
-        - id: demo-login-api-route
-          uri: lb://demo-login
+        - id: demo-auth-api-route
+          uri: lb://demo-auth
           predicates:
-            - Path=/login-api/**
+            - Path=/auth-api/**
           filters:
-            - RewritePath=/login-api/(?<segment>.*), /$\{segment} # 正则替换
+            - RewritePath=/auth-api/(?<segment>.*), /$\{segment} # 正则替换
   main:
     web-application-type: reactive

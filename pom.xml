@@ -9,7 +9,7 @@
     <modules>
         <module>common</module>
         <module>user</module>
-        <module>login</module>
+        <module>auth</module>
         <module>sso</module>
         <module>generator</module>
         <module>gateway</module>
