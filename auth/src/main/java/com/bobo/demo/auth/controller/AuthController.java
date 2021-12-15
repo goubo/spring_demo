@@ -7,6 +7,7 @@ import com.bobo.demo.auth.entity.VO.AuthVO;
 import com.bobo.demo.auth.entity.VO.UserInfoVO;
 import com.bobo.demo.common.enums.ResponseCode;
 import com.bobo.demo.common.response.ResponseResult;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpSession;
  * @author bo
  */
 @RestController
+@Slf4j
 public class AuthController {
   
   private final RestTemplate restTemplate;
@@ -40,14 +42,13 @@ public class AuthController {
     return userClient.page(1, 10);
   }
   
-  @PostMapping(value = "login")
+  @PostMapping(value = "/login")
   @ResponseBody
   public ResponseResult<AuthVO> login(@RequestBody AuthParam authParam, HttpServletRequest request) {
     ResponseResult<AuthVO> check = userClient.check(authParam);
     if (check.success()) {
-      System.out.println("登录成功");
+      log.info("登录成功", check);
       request.getSession().setAttribute("login_user", check.getObject());
-      
     }
     return check;
   }
@@ -57,6 +58,8 @@ public class AuthController {
   public ResponseResult<AuthVO> checkToken(@RequestParam String sessionId, @RequestParam String moduleName,
                                            HttpServletRequest request) {
     HttpSession session = request.getSession();
+    System.out.println(sessionId);
+    System.out.println(session.getId());
     AuthVO loginUser = (AuthVO) session.getAttribute("login_user");
     if (loginUser == null) {
       return new ResponseResult<>(ResponseCode.UNAUTHORIZED);

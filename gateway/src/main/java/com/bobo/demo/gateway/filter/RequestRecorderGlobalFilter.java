@@ -22,6 +22,8 @@ public class RequestRecorderGlobalFilter implements GlobalFilter, Ordered {
   public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
     long start = System.currentTimeMillis();
     UUID uuid = UUID.fastUUID();
+    System.out.println(exchange.getRequest().getHeaders().getFirst("Cookie"));
+    System.out.println(exchange.getSession().block().getId());
     return chain.filter(exchange).then(
       Mono.fromRunnable(() -> {
         log.info("--------{} start----------", uuid);

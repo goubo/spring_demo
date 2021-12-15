@@ -35,7 +35,7 @@ public interface UserClient {
    * @param authParam
    * @return
    */
-  @PostMapping(value = "/user-info/check")
+  @PostMapping(value = "/user-info/auth")
   ResponseResult<AuthVO> check(@RequestBody AuthParam authParam);
   
 }

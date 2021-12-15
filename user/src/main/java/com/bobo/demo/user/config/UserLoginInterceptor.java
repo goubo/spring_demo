@@ -31,6 +31,9 @@ public class UserLoginInterceptor implements HandlerInterceptor {
     System.out.println(" ------------ > this is preHandle ");
     //查询session
     String id = request.getSession().getId();
+    System.out.println(request.getHeader("Cookie"));
+    System.out.println(request.getSession().getId());
+    System.out.println(request.getRequestedSessionId());
     //通过auth模块验证身份 和 模块权限
     ResponseResult<AuthVO> authVOResponseResult = authClient.checkToken(id, USER_INFO_MODULE_NAME);
     if (authVOResponseResult.success()) {

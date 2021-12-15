@@ -12,6 +12,8 @@ import com.bobo.demo.user.service.IUserInfoService;
 import io.swagger.annotations.ApiModel;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * <p>
  * 前端控制器
@@ -25,11 +27,12 @@ import org.springframework.web.bind.annotation.*;
 @ApiModel(value = "UserInfo", description = "用户相关接口")
 public class UserInfoController extends BaseController<UserInfo, IUserInfoService> {
   
-  @PostMapping(value = "auth")
+  @PostMapping(value = "/auth")
   @ResponseBody
-  public ResponseResult<AuthVO> auth(@RequestBody AuthQuery authQuery) {
+  public ResponseResult<AuthVO> auth(@RequestBody AuthQuery authQuery, HttpServletRequest request) {
     AuthVO authVO = new AuthVO().setUserInfo(new UserInfoVO());
     UserInfo auth = service.auth(authQuery);
+    System.out.println(request.getSession().getId());
     if (auth == null) {
       return new ResponseResult<>(ResponseCode.FORBIDDEN, "登录失败");
     }

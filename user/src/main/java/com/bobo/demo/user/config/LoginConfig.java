@@ -1,6 +1,7 @@
 package com.bobo.demo.user.config;
 
 import com.bobo.demo.user.client.AuthClient;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
@@ -12,9 +13,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
  */
 @Configuration
 public class LoginConfig extends WebMvcConfigurationSupport {
-  private final AuthClient authClient;
-  
-  public LoginConfig(AuthClient authClient) {this.authClient = authClient;}
+  @Autowired
+  private AuthClient authClient;
   
   @Override
   public void addInterceptors(InterceptorRegistry registry) {
@@ -23,7 +23,7 @@ public class LoginConfig extends WebMvcConfigurationSupport {
     //所有路径都被拦截
     registration.addPathPatterns("/**");
     //添加不拦截路径
-    registration.excludePathPatterns("/favicon.ico");
+    registration.excludePathPatterns("favicon.ico", "/user-info/auth");
   }
   
   @Bean
