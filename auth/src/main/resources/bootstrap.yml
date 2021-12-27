@@ -5,6 +5,8 @@ spring:
     name: demo-auth
   profiles:
     active: dev
+  redis:
+    host: 172.16.204.147
   cloud:
     nacos:
       config:

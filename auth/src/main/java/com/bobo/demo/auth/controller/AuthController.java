@@ -3,8 +3,8 @@ package com.bobo.demo.auth.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.bobo.demo.auth.client.UserClient;
 import com.bobo.demo.auth.entity.VO.AuthParam;
-import com.bobo.demo.auth.entity.VO.AuthVO;
-import com.bobo.demo.auth.entity.VO.UserInfoVO;
+import com.bobo.demo.common.entity.auth.AuthVO;
+import com.bobo.demo.common.entity.auth.AuthUserInfoVO;
 import com.bobo.demo.common.enums.ResponseCode;
 import com.bobo.demo.common.response.ResponseResult;
 import lombok.extern.slf4j.Slf4j;
@@ -36,7 +36,7 @@ public class AuthController {
    */
   @GetMapping(value = "test", produces = "application/json")
   @ResponseBody
-  public ResponseResult<Page<UserInfoVO>> test(HttpServletRequest request) {
+  public ResponseResult<Page<AuthUserInfoVO>> test(HttpServletRequest request) {
 //    System.out.println(restTemplate.getForObject("http://" + USER_INFO_MODULE_NAME + "/user/user-info", String
 //    .class));
     return userClient.page(1, 10);
@@ -44,28 +44,20 @@ public class AuthController {
   
   @PostMapping(value = "/login")
   @ResponseBody
-  public ResponseResult<AuthVO> login(@RequestBody AuthParam authParam, HttpServletRequest request) {
-    ResponseResult<AuthVO> check = userClient.check(authParam);
-    if (check.success()) {
-      log.info("登录成功", check);
-      request.getSession().setAttribute("login_user", check.getObject());
+  public ResponseResult<AuthVO> login(@RequestBody AuthParam authParam, HttpSession session) {
+    ResponseResult<AuthVO> check;
+    AuthVO authVO = (AuthVO) session.getAttribute("login_user");
+    if (authVO != null) {
+      log.info("已登录状态", authVO);
+      check = new ResponseResult<>(authVO);
+    } else {
+      check = userClient.check(authParam);
+      if (check.success()) {
+        log.info("登录成功", check);
+        session.setAttribute("login_user", check.getObject());
+      }
     }
     return check;
-  }
-  
-  @PostMapping(value = "checkToken")
-  @ResponseBody
-  public ResponseResult<AuthVO> checkToken(@RequestParam String sessionId, @RequestParam String moduleName,
-                                           HttpServletRequest request) {
-    HttpSession session = request.getSession();
-    System.out.println(sessionId);
-    System.out.println(session.getId());
-    AuthVO loginUser = (AuthVO) session.getAttribute("login_user");
-    if (loginUser == null) {
-      return new ResponseResult<>(ResponseCode.UNAUTHORIZED);
-    }
-    System.out.println(loginUser);
-    return new ResponseResult<>(loginUser);
   }
 }
 

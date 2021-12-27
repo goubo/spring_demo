@@ -2,11 +2,11 @@ package com.bobo.demo.user.controller;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.bobo.demo.common.base.BaseController;
+import com.bobo.demo.common.entity.auth.AuthUserInfoVO;
+import com.bobo.demo.common.entity.auth.AuthVO;
 import com.bobo.demo.common.enums.ResponseCode;
 import com.bobo.demo.common.response.ResponseResult;
 import com.bobo.demo.user.entity.UserInfo;
-import com.bobo.demo.user.entity.VO.AuthVO;
-import com.bobo.demo.user.entity.VO.UserInfoVO;
 import com.bobo.demo.user.entity.query.AuthQuery;
 import com.bobo.demo.user.service.IUserInfoService;
 import io.swagger.annotations.ApiModel;
@@ -30,7 +30,7 @@ public class UserInfoController extends BaseController<UserInfo, IUserInfoServic
   @PostMapping(value = "/auth")
   @ResponseBody
   public ResponseResult<AuthVO> auth(@RequestBody AuthQuery authQuery, HttpServletRequest request) {
-    AuthVO authVO = new AuthVO().setUserInfo(new UserInfoVO());
+    AuthVO authVO = new AuthVO().setUserInfo(new AuthUserInfoVO());
     UserInfo auth = service.auth(authQuery);
     System.out.println(request.getSession().getId());
     if (auth == null) {

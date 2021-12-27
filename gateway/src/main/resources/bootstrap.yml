@@ -44,5 +44,7 @@ spring:
             - Path=/auth-api/**
           filters:
             - RewritePath=/auth-api/(?<segment>.*), /$\{segment} # 正则替换
+  redis:
+
   main:
     web-application-type: reactive

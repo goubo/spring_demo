@@ -2,8 +2,8 @@ package com.bobo.demo.auth.client;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.bobo.demo.auth.entity.VO.AuthParam;
-import com.bobo.demo.auth.entity.VO.AuthVO;
-import com.bobo.demo.auth.entity.VO.UserInfoVO;
+import com.bobo.demo.common.entity.auth.AuthVO;
+import com.bobo.demo.common.entity.auth.AuthUserInfoVO;
 import com.bobo.demo.common.response.ResponseResult;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,8 +26,8 @@ public interface UserClient {
    * @return 返回 page 对象
    */
   @GetMapping(value = "/user-info")
-  ResponseResult<Page<UserInfoVO>> page(@RequestParam(defaultValue = "1", value = "current") int current,
-                                        @RequestParam(defaultValue = "10", value = "size") int size);
+  ResponseResult<Page<AuthUserInfoVO>> page(@RequestParam(defaultValue = "1", value = "current") int current,
+                                            @RequestParam(defaultValue = "10", value = "size") int size);
   
   /**
    * 验证密码

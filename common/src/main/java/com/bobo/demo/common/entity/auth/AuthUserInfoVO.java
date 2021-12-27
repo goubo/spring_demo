@@ -1,9 +1,10 @@
-package com.bobo.demo.auth.entity.VO;
+package com.bobo.demo.common.entity.auth;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -11,7 +12,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @Accessors(chain = true)
-public class UserInfoVO {
+public class AuthUserInfoVO implements Serializable {
   private String userName;
   private String userEmail;
   private String userAddress;

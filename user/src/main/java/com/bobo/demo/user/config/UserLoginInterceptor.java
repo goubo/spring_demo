@@ -1,17 +1,15 @@
 package com.bobo.demo.user.config;
 
 import cn.hutool.json.JSONUtil;
+import com.bobo.demo.common.entity.auth.AuthVO;
 import com.bobo.demo.common.enums.ResponseCode;
 import com.bobo.demo.common.response.ResponseResult;
 import com.bobo.demo.user.client.AuthClient;
-import com.bobo.demo.user.entity.VO.AuthVO;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import static com.bobo.demo.common.constant.ModuleInfoConstant.USER_INFO_MODULE_NAME;
 
 /**
  * @author bo
@@ -29,23 +27,15 @@ public class UserLoginInterceptor implements HandlerInterceptor {
   @Override
   public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
     System.out.println(" ------------ > this is preHandle ");
-    //查询session
-    String id = request.getSession().getId();
-    System.out.println(request.getHeader("Cookie"));
-    System.out.println(request.getSession().getId());
-    System.out.println(request.getRequestedSessionId());
-    //通过auth模块验证身份 和 模块权限
-    ResponseResult<AuthVO> authVOResponseResult = authClient.checkToken(id, USER_INFO_MODULE_NAME);
-    if (authVOResponseResult.success()) {
-      System.out.println(authVOResponseResult);
-      request.setAttribute("userSession", authVOResponseResult.getObject());
-      return true;
-    } else {
+    // 验证登陆的session
+    AuthVO loginUser = (AuthVO) request.getSession().getAttribute("login_user");
+    if (loginUser == null) {
       response.setStatus(ResponseCode.UNAUTHORIZED.getCode());
       response.getWriter().write(JSONUtil.toJsonStr(new ResponseResult<>(ResponseCode.UNAUTHORIZED)));
       return false;
+    } else {
+      return true;
     }
-    
   }
   
   @Override
