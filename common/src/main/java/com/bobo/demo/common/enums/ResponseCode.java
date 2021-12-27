@@ -78,7 +78,7 @@ public enum ResponseCode {
    */
   ERROR_GATEWAY_TIMEOUT(50400, "GATEWAY TIMEOUT", 504),
   
-  ;;
+  ;
   
   
   final int code;

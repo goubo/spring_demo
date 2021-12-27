@@ -2,8 +2,8 @@ package com.bobo.demo.auth.client;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.bobo.demo.auth.entity.VO.AuthParam;
-import com.bobo.demo.common.entity.auth.AuthVO;
 import com.bobo.demo.common.entity.auth.AuthUserInfoVO;
+import com.bobo.demo.common.entity.auth.AuthVO;
 import com.bobo.demo.common.response.ResponseResult;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -57,8 +57,6 @@ public abstract class BaseDomain<T> implements Serializable {
   private Boolean deleted;
   
   
-  
-  
   /**
    * @return
    */
