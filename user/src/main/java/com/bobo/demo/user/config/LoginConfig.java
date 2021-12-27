@@ -1,7 +1,5 @@
 package com.bobo.demo.user.config;
 
-import com.bobo.demo.user.client.AuthClient;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
@@ -13,8 +11,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
  */
 @Configuration
 public class LoginConfig extends WebMvcConfigurationSupport {
-  @Autowired
-  private AuthClient authClient;
   
   @Override
   public void addInterceptors(InterceptorRegistry registry) {
@@ -28,6 +24,6 @@ public class LoginConfig extends WebMvcConfigurationSupport {
   
   @Bean
   public UserLoginInterceptor loginInterceptor() {
-    return new UserLoginInterceptor(authClient);
+    return new UserLoginInterceptor();
   }
 }
