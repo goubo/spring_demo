@@ -1,0 +1,30 @@
+metadata:
+- appName: ''
+  dataId: demo-user-dev.yaml
+  desc: 本地测试demo的user模块配置文件 ，
+  group: localdemo_group
+  type: yaml
+- appName: ''
+  dataId: demo-login-dev.yaml
+  desc: 登录模块测试
+  group: localdemo_group
+  type: yaml
+- appName: ''
+  dataId: base.yaml
+  desc: 本地测试demo的user模块配置文件 ，
+  group: localdemo_group
+  type: yaml
+- appName: ''
+  dataId: datasource-dev.yaml
+  desc: 数据源配置
+  group: localdemo_group
+  type: yaml
+- appName: ''
+  dataId: demo-gateway-dev.yaml
+  desc: ''
+  group: localdemo_group
+  type: yaml
+- appName: ''
+  dataId: redis-dev.yaml
+  group: localdemo_group
+  type: yaml

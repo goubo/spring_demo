@@ -25,7 +25,8 @@
         <spring.boot.version>2.5.5</spring.boot.version>
         <spring.cloud.version>2020.0.3</spring.cloud.version>
         <spring.cloud.alibaba.version>2021.1</spring.cloud.alibaba.version>
-        <hutool.version>5.7.16</hutool.version>
+        <hutool.version>5.7.17</hutool.version>
+        <redisson.version>3.15.6</redisson.version>
     </properties>
 
 
@@ -100,6 +101,11 @@
                 <artifactId>druid-spring-boot-starter</artifactId>
                 <version>${druid.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.redisson</groupId>
+                <artifactId>redisson-spring-boot-starter</artifactId>
+                <version>${redisson.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -117,7 +123,6 @@
             <artifactId>hutool-all</artifactId>
             <version>${hutool.version}</version>
         </dependency>
-
     </dependencies>
     <build>
         <plugins>

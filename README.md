@@ -20,6 +20,9 @@ spring 功能demo
 - [x] druid 多数据源
 - [ ] 登录权限
 - [ ] sso
+- [x]  
+- [x] 模块间session共享(session redis)
+- [x] redis 分布式锁 (redisson)
 
 ## 启动说明
 

@@ -1,4 +1,6 @@
 spring:
+  redis:
+    host: 172.16.204.147
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     dynamic:

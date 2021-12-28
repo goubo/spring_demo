@@ -5,8 +5,6 @@ spring:
     name: demo-user
   profiles:
     active: dev
-  redis:
-    host: 172.16.204.147
   cloud:
     nacos:
       config:
@@ -19,6 +17,9 @@ spring:
           - refresh: true
             group: localdemo_group
             dataId: datasource-${spring.profiles.active}.yaml
+          - refresh: true
+            group: localdemo_group
+            dataId: redis-${spring.profiles.active}.yaml
           - refresh: true
             group: localdemo_group
             dataId: ${spring.application.name}-${spring.profiles.active}.yaml

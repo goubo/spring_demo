@@ -1,0 +1,13 @@
+spring:
+  redis:
+    redisson:
+      config:
+        singleServerConfig:
+#          password: 123456
+          address: "redis://172.16.204.147:6379"
+          database: 1
+        threads: 0
+        nettyThreads: 0
+        codec: org.redisson.codec.FstCodec
+        transportMode: "NIO"
+    host: 172.16.204.147
