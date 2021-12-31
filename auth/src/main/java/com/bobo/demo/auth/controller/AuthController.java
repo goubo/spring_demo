@@ -28,19 +28,6 @@ public class AuthController {
     this.userClient = userClient;
   }
   
-  /**
-   * test
-   *
-   * @return
-   */
-  @GetMapping(value = "test", produces = "application/json")
-  @ResponseBody
-  public ResponseResult<Page<AuthUserInfoVO>> test(HttpServletRequest request) {
-//    System.out.println(restTemplate.getForObject("http://" + USER_INFO_MODULE_NAME + "/user/user-info", String
-//    .class));
-    return userClient.page(1, 10);
-  }
-  
   @PostMapping(value = "/login")
   @ResponseBody
   public ResponseResult<AuthVO> login(@RequestBody AuthParam authParam, HttpSession session) {

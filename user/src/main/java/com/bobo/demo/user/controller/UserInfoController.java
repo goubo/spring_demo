@@ -1,6 +1,7 @@
 package com.bobo.demo.user.controller;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.util.StrUtil;
 import com.bobo.demo.common.base.BaseController;
 import com.bobo.demo.common.entity.auth.AuthUserInfoVO;
 import com.bobo.demo.common.entity.auth.AuthVO;
@@ -13,10 +14,7 @@ import io.swagger.annotations.ApiModel;
 import org.redisson.api.RLock;
 import org.redisson.api.RMap;
 import org.redisson.api.RedissonClient;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * <p>
@@ -31,12 +29,13 @@ import javax.servlet.http.HttpServletRequest;
 @ApiModel(value = "UserInfo", description = "用户相关接口")
 public class UserInfoController extends BaseController<UserInfo, IUserInfoService> {
   
-  @Autowired
-  RedissonClient redissonClient;
+  private final RedissonClient redissonClient;
+  
+  public UserInfoController(RedissonClient redissonClient) {this.redissonClient = redissonClient;}
   
   @PostMapping(value = "/auth")
   @ResponseBody
-  public ResponseResult<AuthVO> auth(@RequestBody AuthQuery authQuery, HttpServletRequest request) {
+  public ResponseResult<AuthVO> auth(@RequestBody AuthQuery authQuery) {
     AuthVO authVO = new AuthVO().setUserInfo(new AuthUserInfoVO());
     UserInfo auth = service.auth(authQuery);
     if (auth == null) {
@@ -44,6 +43,24 @@ public class UserInfoController extends BaseController<UserInfo, IUserInfoServic
     }
     BeanUtil.copyProperties(auth, authVO.getUserInfo());
     return new ResponseResult<>(authVO);
+  }
+  
+  @PostMapping(value = "/register")
+  @ResponseBody
+  public ResponseResult<AuthVO> register(@RequestBody AuthQuery authQuery) {
+    if (StrUtil.isEmpty(authQuery.getUserName())) {
+      return new ResponseResult<>(ResponseCode.PARAM_NOT_FOUND, "userName is null");
+    }
+    if (StrUtil.isEmpty(authQuery.getPassword())) {
+      return new ResponseResult<>(ResponseCode.PARAM_NOT_FOUND, "password is null");
+    }
+    boolean b =
+      service.create(new UserInfo().setUserName(authQuery.getUserName()).setUserPassword(authQuery.getPassword()));
+    if (b) {
+      return new ResponseResult<>();
+    } else {
+      return new ResponseResult<>(ResponseCode.ERROR_DAO_SERVER_ERROR, "注册失败,请联系后台");
+    }
   }
   
   @GetMapping(value = "/test/redis")

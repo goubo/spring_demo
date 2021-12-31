@@ -26,5 +26,6 @@ metadata:
   type: yaml
 - appName: ''
   dataId: redis-dev.yaml
+  desc: ''
   group: localdemo_group
   type: yaml

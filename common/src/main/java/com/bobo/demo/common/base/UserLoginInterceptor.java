@@ -1,4 +1,4 @@
-package com.bobo.demo.user.config;
+package com.bobo.demo.common.base;
 
 import cn.hutool.json.JSONUtil;
 import com.bobo.demo.common.entity.auth.AuthVO;
@@ -25,7 +25,8 @@ public class UserLoginInterceptor implements HandlerInterceptor {
     // 验证登陆的session
     AuthVO loginUser = (AuthVO) request.getSession().getAttribute("login_user");
     if (loginUser == null) {
-      response.setStatus(ResponseCode.UNAUTHORIZED.getCode());
+      response.setContentType("application/json; charset=UTF-8");
+      response.setStatus(ResponseCode.UNAUTHORIZED.getHttpCode());
       PrintWriter pw = response.getWriter();
       pw.write(JSONUtil.toJsonStr(new ResponseResult<>(ResponseCode.UNAUTHORIZED)));
       pw.flush();
