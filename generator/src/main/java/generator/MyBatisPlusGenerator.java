@@ -18,7 +18,7 @@ import java.util.function.Consumer;
  */
 public class MyBatisPlusGenerator {
   
-  private final static String url = "jdbc:mysql://172.16.204.129:3306/demodb?useSSL=false&allowPublicKeyRetrieval=true";
+  private final static String url = "jdbc:mysql://192.168.84.128:3306/demodb?useSSL=false&allowPublicKeyRetrieval=true";
   private final static String userName = "root";
   private final static String password = "H%Rt?)QjM^j?M8";
   private final static String parent = "com.bobo.demo";

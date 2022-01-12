@@ -4,10 +4,10 @@ spring:
       config:
         singleServerConfig:
 #          password: 123456
-          address: "redis://172.16.204.129:6379"
+          address: "redis://192.168.84.128:6379"
           database: 1
         threads: 0
         nettyThreads: 0
         codec: org.redisson.codec.FstCodec
         transportMode: "NIO"
-    host: 172.16.204.129
+    host: 192.168.84.128

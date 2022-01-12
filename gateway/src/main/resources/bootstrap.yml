@@ -8,7 +8,7 @@ spring:
   cloud:
     nacos:
       config:
-        server-addr: 172.16.204.129:8848
+        server-addr: 192.168.84.128:8848
         namespace: 40aecca3-01ad-4cb5-a41b-1441979639a4
         extension-configs:
           - refresh: true
@@ -21,12 +21,12 @@ spring:
             group: localdemo_group
             dataId: ${spring.application.name}-${spring.profiles.active}.yaml
       discovery:
-        server-addr: 172.16.204.129:8848
+        server-addr: 192.168.84.128:8848
         group: localdemo_group
         namespace: 40aecca3-01ad-4cb5-a41b-1441979639a4
     sentinel:
       transport:
-        dashboard: 172.16.204.129:18080
+        dashboard: 192.168.84.128:18080
         port: 11000
       eager: true
       enabled: true
@@ -47,7 +47,6 @@ spring:
             - Path=/auth-api/**
           filters:
             - RewritePath=/auth-api/(?<segment>.*), /$\{segment} # 正则替换
-  redis:
 
   main:
     web-application-type: reactive

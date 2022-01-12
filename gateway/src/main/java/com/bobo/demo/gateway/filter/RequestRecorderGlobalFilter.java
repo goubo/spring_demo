@@ -17,25 +17,24 @@ import reactor.core.publisher.Mono;
 @Component
 @Slf4j
 public class RequestRecorderGlobalFilter implements GlobalFilter, Ordered {
-  
-  @Override
-  public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-    long start = System.currentTimeMillis();
-    UUID uuid = UUID.fastUUID();
-    return chain.filter(exchange).then(
-      Mono.fromRunnable(() -> {
-        log.info("--------{} start----------", uuid);
-        log.info("{} - {} ,耗时:{}ms", uuid, exchange.getRequest().getURI().getRawPath(),
-          System.currentTimeMillis() - start);
-        log.info("{}-状态:{}", uuid, exchange.getResponse().getStatusCode());
-        log.info("--------{} end----------", uuid);
-        
-      })
-    );
-  }
-  
-  @Override
-  public int getOrder() {
-    return -1;
-  }
+
+    @Override
+    public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
+        long start = System.currentTimeMillis();
+        UUID uuid = UUID.fastUUID();
+        return chain.filter(exchange).then(
+                Mono.fromRunnable(() -> {
+                    log.info("--------{} start----------", uuid);
+                    log.info("{} - {} ,耗时:{}ms", uuid, exchange.getRequest().getURI().getRawPath(),
+                            System.currentTimeMillis() - start);
+                    log.info("{}-状态:{}", uuid, exchange.getResponse().getStatusCode());
+                    log.info("--------{} end----------", uuid);
+                })
+        );
+    }
+
+    @Override
+    public int getOrder() {
+        return -1;
+    }
 }

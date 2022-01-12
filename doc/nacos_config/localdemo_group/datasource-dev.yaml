@@ -8,7 +8,7 @@ spring:
       datasource:
         master:
           driver-class-name: com.mysql.cj.jdbc.Driver
-          url: jdbc:mysql://172.16.204.129:3306/demodb?useSSL=false&allowPublicKeyRetrieval=true
+          url: jdbc:mysql://192.168.84.128:3306/demodb?useSSL=false&allowPublicKeyRetrieval=true
           username: root
           password: H%Rt?)QjM^j?M8
       druid:
